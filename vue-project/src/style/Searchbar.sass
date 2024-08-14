@@ -1,0 +1,29 @@
+@import "base.sass"
+
+.searchbar
+  z-index: 10
+  &__container
+    position: relative
+    width: 320px
+    height: 36px
+    margin: auto
+    &:after
+      position: absolute
+      content: ''
+      top: 8px
+      right: 12px
+      background-image: url("@/assets/search.svg")
+      background-repeat: no-repeat
+      background-position: center
+      width: 20px
+      height: 20px
+      display: block
+    input
+      border: 1px solid $font-grey
+      border-radius: 18px
+      padding: 0 15px
+      color: $font-grey
+      height: 100%
+      width: 100%
+      &:focus
+        outline: none
