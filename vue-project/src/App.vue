@@ -1,14 +1,17 @@
 <template lang="pug">
-    Header
+    .page
+      Header
+      MainPageBody
 </template>
 
 <script>
-import "@/style/base.sass"
 import Header from "@/components/Header.vue";
+import MainPageBody from "@/components/MainPageBody.vue";
 
 export default{
   components: {
-    Header
+    Header,
+    MainPageBody
   }
 };
 </script>

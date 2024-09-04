@@ -1,0 +1,20 @@
+@import "base.sass"
+
+.full-width-slider
+  position: relative
+  &__item
+    overflow: hidden
+  .swiper-button-prev
+    left: 25px
+    transform: scale(-1)
+  .swiper-button-next
+    right: 25px
+  .swiper-button-prev, .swiper-button-next
+    background-image: url("@/assets/slider-nav.svg")
+    width: 30px
+    height: 75px
+    background-position: center
+    background-repeat: no-repeat
+    z-index: 2
+    position: absolute
+    top: 50%

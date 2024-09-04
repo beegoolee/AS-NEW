@@ -1,0 +1,46 @@
+@import "base.sass"
+
+.catalog-main-menu
+  height: 65px
+  a
+    color: $font-grey
+    text-decoration: none
+  &__lvl1-item
+    flex: 1
+    &:hover
+      background-color: $as-green
+      color: #fff
+      > a
+        color: #fff
+      & + div:before
+        display: none!important
+    &:not(:first-child)
+      position: relative
+      &:before
+        content: ''
+        position: absolute
+        left: 1px
+        height: calc(100% - 20px)
+        background-color: $as-green
+        width: 1px
+
+  &__lvl1-item
+    position: relative
+    .catalog-main-menu__lvl1-item-dropdown
+      display: none
+  &__lvl1-item:hover
+    .catalog-main-menu__lvl1-item-dropdown
+      z-index: 1
+      display: block
+      position: absolute
+      top: 100%
+      left: 0
+      background-color: #fff
+      border: 1px solid rgba(0, 0, 0, 0.15)
+      -webkit-box-shadow: 0 8px 8px rgba(0, 0, 0, 0.175)
+      box-shadow: 0 8px 8px rgba(0, 0, 0, 0.175)
+      padding: 25px
+      min-width: 300px
+  &__lvl2-item:hover > a
+    text-decoration: underline
+
