@@ -1,6 +1,6 @@
 <template lang="pug">
   .rating-stars
-    .rating-stars__item(v-for="star in [1, 2, 3, 4, 5]")
+    .rating-stars__item(v-for="(star, index) in [1, 2, 3, 4, 5]" :key="index")
 
 </template>
 

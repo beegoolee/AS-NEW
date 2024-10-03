@@ -1,17 +1,20 @@
 <template lang="pug">
     .page
       Header
-      MainPageBody
+      RouterView
+      Footer
 </template>
 
 <script>
+import {RouterView} from "vue-router";
 import Header from "@/components/Header.vue";
-import MainPageBody from "@/components/MainPageBody.vue";
+import Footer from "@/components/Footer.vue";
 
 export default{
   components: {
     Header,
-    MainPageBody
+    RouterView,
+    Footer
   }
 };
 </script>

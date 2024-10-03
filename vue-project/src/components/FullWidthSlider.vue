@@ -1,6 +1,6 @@
 <template lang="pug">
   Swiper.full-width-slider(v-if="slides.length > 0" v-bind="sliderOptions")
-    SwiperSlide.full-width-slider__item(v-for="item in slides")
+    SwiperSlide.full-width-slider__item(v-for="(item, index) in slides" :key="index")
       a.d-flex.w-100.justify-content-center(:href="item.link")
         img(:src="item.img")
 </template>
@@ -16,7 +16,9 @@ export default {
     SwiperSlide,
   },
   props: {
-    slides: [],
+    slides: {
+      type: Array
+    },
   },
   setup() {
     const sliderOptions = {

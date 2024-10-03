@@ -1,17 +1,16 @@
 <template lang="pug">
-  a.site-logo(:href="siteMainpageLink")
+  RouterLink.site-logo(to="/")
     img.site-logo__img(src="@/assets/logo.svg")
 </template>
 
 <script>
 import "@/style/SiteLogo.sass"
+import {RouterLink} from "vue-router";
 
 export default {
-  computed: {
-    siteMainpageLink(){
-      return 'https://asevalar.ru';
-    }
-  }
+  components: [
+      RouterLink
+  ]
 }
 </script>
 
