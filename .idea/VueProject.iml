@@ -1,7 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="WEB_MODULE" version="4">
   <component name="NewModuleRootManager">
-    <content url="file://$MODULE_DIR$" />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/symfony_ase-new/src" isTestSource="false" packagePrefix="App\" />
+      <sourceFolder url="file://$MODULE_DIR$/symfony_ase-new/tests" isTestSource="true" packagePrefix="App\Tests\" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/doctrine/cache" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/doctrine/collections" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/doctrine/data-fixtures" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/doctrine/dbal" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/doctrine/deprecations" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/doctrine/doctrine-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/doctrine/doctrine-fixtures-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/doctrine/doctrine-migrations-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/doctrine/event-manager" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/doctrine/inflector" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/doctrine/instantiator" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/doctrine/lexer" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/doctrine/migrations" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/doctrine/orm" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/doctrine/persistence" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/doctrine/sql-formatter" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/nikic/php-parser" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/psr/cache" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/psr/container" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/psr/event-dispatcher" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/psr/log" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/symfony/cache" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/symfony/cache-contracts" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/symfony/config" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/symfony/console" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/symfony/dependency-injection" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/symfony/deprecation-contracts" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/symfony/doctrine-bridge" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/symfony/dotenv" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/symfony/error-handler" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/symfony/event-dispatcher" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/symfony/event-dispatcher-contracts" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/symfony/filesystem" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/symfony/finder" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/symfony/flex" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/symfony/framework-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/symfony/http-foundation" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/symfony/http-kernel" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/symfony/maker-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/symfony/polyfill-intl-grapheme" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/symfony/polyfill-intl-normalizer" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/symfony/polyfill-mbstring" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/symfony/polyfill-php83" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/symfony/process" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/symfony/routing" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/symfony/runtime" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/symfony/service-contracts" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/symfony/stopwatch" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/symfony/string" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/symfony/var-dumper" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/symfony/var-exporter" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/symfony/yaml" />
+    </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>

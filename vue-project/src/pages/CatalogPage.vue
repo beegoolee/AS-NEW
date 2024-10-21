@@ -24,8 +24,8 @@ export default {
     }
   },
   created: function () {
-    axios.get("https://vue-study.skillbox.cc/api/products").then(res => {
-      this.products = res.data.items;
+    axios.get("https://127.0.0.1:8001/api/products").then(res => {
+      this.products = res.data;
     })
   },
 }
