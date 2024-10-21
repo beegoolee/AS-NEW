@@ -1,9 +1,9 @@
 <template lang="pug">
   div
     .product-preview-card
-      img(:src="productData.img" :alt="productData.name")
-      p {{productData.name}}
-      RatingStars(:rating="+productData.rating")
+      img(:src="productData.image.file.url" :alt="productData.title")
+      p {{productData.title}}
+      //RatingStars(:rating="+productData.rating")
       .product-preview-card__buy-block
         .product-preview-card__prices
           .product-preview-card__old-price(v-if="productData.oldPrice && productData.oldPrice > productData.price") {{productData.oldPrice}}
@@ -22,9 +22,7 @@ export default {
     AddToCartBtn
   },
   props: {
-    productData: {
-      type: Object
-    },
+    productData: {},
   },
 }
 

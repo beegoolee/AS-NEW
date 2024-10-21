@@ -12,18 +12,16 @@ const router = createRouter({
             name: 'catalog',
             path: '/catalog',
             component: () => import('@/pages/CatalogPage.vue'),
-            // children: [
-            //     {
-            //         name: 'ProductDetail',
-            //         path: 'product',
-            //         component: () => import('@/pages/ProductDetailPage.vue')
-            //     }
-            // ]
         },
         {
             name: 'ProductDetail',
-            path: '/catalog/product',
+            path: '/catalog/product/:productCode',
             component: () => import('@/pages/ProductDetailPage.vue')
+        },
+        {
+            name: 'not-found',
+            path: '/:pathMatch(.*)*',
+            component: () => import('@/pages/404Page.vue'),
         }
     ]
 });
