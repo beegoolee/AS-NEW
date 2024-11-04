@@ -10,13 +10,8 @@ const router = createRouter({
         },
         {
             name: 'catalog',
-            path: '/catalog',
+            path: '/catalog/:slug',
             component: () => import('@/pages/CatalogPage.vue'),
-        },
-        {
-            name: 'ProductDetail',
-            path: '/catalog/product/:productCode',
-            component: () => import('@/pages/ProductDetailPage.vue')
         },
         {
             name: 'not-found',

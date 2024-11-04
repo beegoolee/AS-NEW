@@ -10,6 +10,7 @@
 import axios from "axios";
 
 import ProductPreviewCard from "@/components/ProductPreviewCard.vue";
+import {useRoute} from "vue-router";
 
 export default {
   components: {
@@ -24,9 +25,15 @@ export default {
     }
   },
   created: function () {
-    axios.get("https://127.0.0.1:8001/api/products").then(res => {
-      this.products = res.data;
-    })
+    const route = useRoute();
+    this.url = route.params.slug;
+
+    //TODO через аксиос по урлу проверяем, раздел это, каталог, или деталка товара.
+    // В зависимости от ответа - получаем либо весь каталог, либо один раздел, либо один товар
+
+    // axios.get("https://127.0.0.1:8000/api/sections").then(res => {
+    //   this.products = res.data;
+    // })
   },
 }
 </script>
