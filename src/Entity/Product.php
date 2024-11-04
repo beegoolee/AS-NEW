@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProductRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
@@ -30,6 +32,17 @@ class Product
 
     #[ORM\Column(nullable: true)]
     private ?int $rating = null;
+
+    /**
+     * @var Collection<int, CatalogSection>
+     */
+    #[ORM\ManyToMany(targetEntity: CatalogSection::class, inversedBy: 'products')]
+    private Collection $ParentSection;
+
+    public function __construct()
+    {
+        $this->ParentSection = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -104,6 +117,30 @@ class Product
     public function setRating(?int $rating): static
     {
         $this->rating = $rating;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CatalogSection>
+     */
+    public function getParentSection(): Collection
+    {
+        return $this->ParentSection;
+    }
+
+    public function addParentSection(CatalogSection $parentSection): static
+    {
+        if (!$this->ParentSection->contains($parentSection)) {
+            $this->ParentSection->add($parentSection);
+        }
+
+        return $this;
+    }
+
+    public function removeParentSection(CatalogSection $parentSection): static
+    {
+        $this->ParentSection->removeElement($parentSection);
 
         return $this;
     }

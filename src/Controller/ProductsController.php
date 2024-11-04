@@ -9,16 +9,13 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class ProductsController extends AbstractController
 {
-    #[Route('/api/products/{slug}', name: 'api_products', methods: ['GET'])]
-    public function getProducts(ProductRepository $productRepository, $slug = null): JsonResponse
+    #[Route('/api/product/{slug}', name: 'api_products', methods: ['GET'])]
+    public function getProduct(ProductRepository $productRepository, $slug): JsonResponse
     {
         header('Access-Control-Allow-Origin: *');
 
-        if($slug){
-            $return = $productRepository->createQueryBuilder('products')->setParameter('slug', $slug)->andWhere('products.slug = :slug')->getQuery()->getArrayResult();
-        }else{
-            $return = $productRepository->createQueryBuilder('products')->getQuery()->getArrayResult();
-        }
+        // конкретный товар
+        $return = $productRepository->createQueryBuilder('products')->setParameter('slug', $slug)->andWhere('products.slug = :slug')->getQuery()->getArrayResult();
 
         return $this->json($return);
     }
