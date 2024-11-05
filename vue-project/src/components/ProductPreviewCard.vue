@@ -2,7 +2,7 @@
   div
     .product-preview-card
       img(:src="productData.image" :alt="productData.name")
-      p {{productData.name}}
+      a(:href="productData.url") {{productData.name}}
       RatingStars(:rating="+productData.rating")
       .product-preview-card__buy-block
         .product-preview-card__prices

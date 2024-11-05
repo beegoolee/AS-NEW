@@ -18,7 +18,7 @@ export default {
     }
   },
   created() {
-    axios.get("https://127.0.0.1:8000/api/sections").then(res => {
+    axios.get("https://127.0.0.1:8000/api/catalog_menu/").then(res => {
       this.menuItems = res.data;
     });
   }
