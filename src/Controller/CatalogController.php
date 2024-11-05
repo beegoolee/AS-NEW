@@ -5,25 +5,22 @@ namespace App\Controller;
 use App\Entity\CatalogSection;
 use App\Entity\Product;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Query\Expr\Join;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
 
 class CatalogController extends AbstractController
 {
-    #[Route('/api/catalog/{url}', name: 'api_sections', methods: ['GET'], requirements: ["url" => ".+"])]
+    #[Route('/api/catalog/{url}', name: 'api_catalog', methods: ['GET'], requirements: ["url" => ".+"])]
     public function getCatalog(EntityManagerInterface $em, $url = null): JsonResponse
     {
-        header('Access-Control-Allow-Origin: *');
-
         $arReturn = [];
 
         // параметры для пагинации
         $iPageSize = 24;
         $iPageN = 1;
 
-        if ($url) {
+        if ($url && $url != '/catalog/') {
             // есть адрес раздела ИЛИ товара, определяем чей адрес. Сначала разделы - их априори меньше
             $sectionsRepo = $em->getRepository(CatalogSection::class);
             $query = $sectionsRepo->createQueryBuilder('sections')->setParameter('url', $url)->andWhere('sections.url = :url')->getQuery();
@@ -57,6 +54,7 @@ class CatalogController extends AbstractController
                 $arReturn = [
                     'sections' => $arSections,
                     'products' => $arProducts,
+                    'pageType' => 'section'
                 ];
             } else {
                 // это не раздел - пытаемся найти деталку товара
@@ -69,12 +67,13 @@ class CatalogController extends AbstractController
                 if (!empty($arCurProduct)) {
                     $arReturn = [
                         'products' => $arProducts,
+                        'pageType' => 'product'
                     ];
                 } else {
                     // ничего не нашли, 404, возвращаем пустой arReturn по-умолчанию
                 }
             }
-        } else {
+        } else if ($url === '/catalog/') {
             // урла не пришло, возвращаем весь каталог
 
             // получаем все разделы
@@ -92,9 +91,19 @@ class CatalogController extends AbstractController
             $arReturn = [
                 'sections' => $arSections,
                 'products' => $arProducts,
+                'pageType' => 'catalog'
             ];
         }
 
         return $this->json($arReturn);
+    }
+
+    #[Route('/api/catalog_menu/', name: 'api_catalog_menu', methods: ['GET'])]
+    public function getCatalogMenu(EntityManagerInterface $em): JsonResponse
+    {
+        $sectionRepo = $em->getRepository(CatalogSection::class);
+        $arSections = $sectionRepo->createQueryBuilder('sections')->getQuery()->getArrayResult();
+
+        return $this->json($arSections);
     }
 }
