@@ -40,8 +40,7 @@ export default {
     const route = useRoute();
     this.url = route.path;
     // В зависимости от урла - получаем от бека либо весь каталог, либо один раздел, либо один товар
-
-    axios.get('https://127.0.0.1:8000/api/catalog/' + this.url).then(res => {
+    axios.get('https://127.0.0.1:8000/api/catalog/' + this.url + '?pagen=' + route.query.pagen + '&pagesize=' + route.query.pagesize).then(res => {
       this.products = res.data.products;
       this.sections = res.data.sections;
       this.pageType = res.data.pageType;
