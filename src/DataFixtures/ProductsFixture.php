@@ -12,7 +12,7 @@ class ProductsFixture extends Fixture
     public function load(ObjectManager $manager): void
     {
         // добавляем разделы каталога
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             $section = new CatalogSection();
             $section->setName('Section ' . $i);
             $section->setSlug("section-" . $i);
@@ -24,7 +24,7 @@ class ProductsFixture extends Fixture
 
         // Добавляем товары с привязкой к разделам
         $arSections = $manager->getRepository(CatalogSection::class)->findAll();
-        for ($i = 0; $i < 200; $i++) {
+        for ($i = 0; $i < 2000; $i++) {
             $product = new Product();
             $parentSection = $arSections[array_rand($arSections)];
             $product->addParentSection($parentSection);

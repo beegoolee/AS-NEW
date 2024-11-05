@@ -8,17 +8,25 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 class CatalogController extends AbstractController
 {
     #[Route('/api/catalog/{url}', name: 'api_catalog', methods: ['GET'], requirements: ["url" => ".+"])]
-    public function getCatalog(EntityManagerInterface $em, $url = null): JsonResponse
+    public function getCatalog(EntityManagerInterface $em, Request $request, $url = null): JsonResponse
     {
         $arReturn = [];
 
         // параметры для пагинации
         $iPageSize = 24;
+        if(intval($request->query->get('pagesize')) > 0){
+            $iPageSize = intval($request->query->get('pagesize'));
+        }
+
         $iPageN = 1;
+        if(intval($request->query->get('pagen')) > 0){
+            $iPageN = intval($request->query->get('pagen'));
+        }
 
         if ($url && $url != '/catalog/') {
             // есть адрес раздела ИЛИ товара, определяем чей адрес. Сначала разделы - их априори меньше
