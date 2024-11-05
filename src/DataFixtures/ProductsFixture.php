@@ -15,7 +15,7 @@ class ProductsFixture extends Fixture{
             $section = new CatalogSection();
             $section->setName('Section '.$i);
             $section->setSlug("section-".$i);
-            $section->setUrl("/catalog/section-".$i);
+            $section->setUrl("section-".$i."/");
 
             $manager->persist($section);
         }
@@ -25,10 +25,13 @@ class ProductsFixture extends Fixture{
         $arSections = $manager->getRepository(CatalogSection::class)->findAll();
         for ($i = 0; $i < 200; $i++) {
             $product = new Product();
-            $product->addParentSection($arSections[array_rand($arSections)]);
+            $parentSection = $arSections[array_rand($arSections)];
+            $product->addParentSection($parentSection);
 
             $product->setName('Продукт  '.$i);
-            $product->setSlug('product_'.$i);
+            $sSlug = 'product_'.$i;
+            $product->setSlug($sSlug);
+            $product->setUrl($parentSection->getUrl().$sSlug.'/');
             $product->setImage("https://asevalar.ru/upload/iblock/a66/6qr9fio0ckmbin1h7f4vclnfiszb67yl_480_480.jpg");
             $product->setPrice(mt_rand(10, 100));
             $product->setRating(mt_rand(1, 5));

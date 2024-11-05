@@ -39,6 +39,9 @@ class Product
     #[ORM\ManyToMany(targetEntity: CatalogSection::class, inversedBy: 'products')]
     private Collection $ParentSection;
 
+    #[ORM\Column(length: 255)]
+    private ?string $url = null;
+
     public function __construct()
     {
         $this->ParentSection = new ArrayCollection();
@@ -141,6 +144,18 @@ class Product
     public function removeParentSection(CatalogSection $parentSection): static
     {
         $this->ParentSection->removeElement($parentSection);
+
+        return $this;
+    }
+
+    public function getUrl(): ?string
+    {
+        return $this->url;
+    }
+
+    public function setUrl(string $url): static
+    {
+        $this->url = $url;
 
         return $this;
     }
