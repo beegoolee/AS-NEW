@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\CatalogSection;
 use App\Entity\Product;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Query\Expr\Join;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
@@ -39,30 +40,33 @@ class CatalogController extends AbstractController
             if (!empty($arCurSection)) {
                 // получаем товары данного раздела
 
-                $arObProducts = $sectionsRepo->find($arCurSection['id'])->getProducts()->getValues();
-                $arProducts = [];
-                foreach ($arObProducts as $product) {
-                    $arProducts[] = [
-                        'id' => $product->getId(),
-                        'name' => $product->getName(),
-                        'url' => $product->getUrl(),
-                        'image' => $product->getImage(),
-                        'price' => $product->getPrice(),
-                        'rating' => $product->getRating(),
-                        'slug' => $product->getSlug(),
-                    ];
+                $sSqlQuery = "SELECT product_id FROM product_catalog_section WHERE catalog_section_id = {$arCurSection["id"]}";
+                $arSectionProductsResult = $em->getConnection()->prepare($sSqlQuery)->executeQuery()->fetchAllAssociative();
+                $arSectionProductIDs = [];
+                foreach ($arSectionProductsResult as $arSectionProduct) {
+                    $arSectionProductIDs[] = $arSectionProduct["product_id"];
                 }
-//                TODO Надо переделать на query builder с применением пагинации
-//                $productsRepo = $em->getRepository(Product::class);
-//                $paginator = new \Doctrine\ORM\Tools\Pagination\Paginator($productsQuery);
-//                $productsQuery = $paginator->getQuery()->setFirstResult(($iPageN - 1) * $iPageSize)->setMaxResults($iPageSize);
-//                $arProducts = $productsQuery->getArrayResult();
 
+                $productsRepo = $em->getRepository(Product::class);
+                $productsQuery = $productsRepo->createQueryBuilder('products')
+                    ->setParameter('sectionProductsIds', $arSectionProductIDs)
+                    ->andWhere('products.id IN (:sectionProductsIds)')
+                    ->getQuery();
+
+                $paginator = new \Doctrine\ORM\Tools\Pagination\Paginator($productsQuery);
+                $productsQuery = $paginator->getQuery()->setFirstResult(($iPageN - 1) * $iPageSize)->setMaxResults($iPageSize);
+                $arProducts = $productsQuery->getArrayResult();
 
                 $arReturn = [
                     'sections' => $arSections,
                     'products' => $arProducts,
-                    'pageType' => 'section'
+                    'pageType' => 'section',
+                    'pagenInfo' => [
+                        'totalCount' => $paginator->count(),
+                        'currentPage' => $iPageN,
+                        'pageSize' => $iPageSize,
+                        'currentPageCount' => count($arProducts),
+                    ]
                 ];
             } else {
                 // это не раздел - пытаемся найти деталку товара
