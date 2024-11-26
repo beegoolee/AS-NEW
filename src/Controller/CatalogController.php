@@ -19,7 +19,7 @@ class CatalogController extends AbstractController
         $arReturn = [];
 
         // параметры для пагинации
-        $iPageSize = 24;
+        $iPageSize = 9;
         if(intval($request->query->get('pagesize')) > 0){
             $iPageSize = intval($request->query->get('pagesize'));
         }
@@ -66,6 +66,7 @@ class CatalogController extends AbstractController
                         'currentPage' => $iPageN,
                         'pageSize' => $iPageSize,
                         'currentPageCount' => count($arProducts),
+                        'pagesCount' => ceil($paginator->count() / $iPageSize),
                     ]
                 ];
             } else {
