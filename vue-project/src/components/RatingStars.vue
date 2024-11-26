@@ -1,6 +1,6 @@
 <template lang="pug">
   .rating-stars
-    .rating-stars__item(v-for="n in rating") *
+    .rating-stars__item(v-if="rating > 0" v-for="n in rating") *
 
 </template>
 
