@@ -61,6 +61,7 @@ class CatalogController extends AbstractController
                     'sections' => $arSections,
                     'products' => $arProducts,
                     'pageType' => 'section',
+                    'pageTitle' => "Заголовок подраздела",
                     'pagenInfo' => [
                         'totalCount' => $paginator->count(),
                         'currentPage' => $iPageN,
@@ -80,7 +81,8 @@ class CatalogController extends AbstractController
                 if (!empty($arCurProduct)) {
                     $arReturn = [
                         'products' => $arProducts,
-                        'pageType' => 'product'
+                        'pageType' => 'product',
+                        'pageTitle' => "Заголовок деталки"
                     ];
                 } else {
                     // ничего не нашли, 404, возвращаем пустой arReturn по-умолчанию
@@ -104,7 +106,15 @@ class CatalogController extends AbstractController
             $arReturn = [
                 'sections' => $arSections,
                 'products' => $arProducts,
-                'pageType' => 'catalog'
+                'pageType' => 'catalog',
+                'pageTitle' => "Заголовок всего каталога",
+                'pagenInfo' => [
+                    'totalCount' => $paginator->count(),
+                    'currentPage' => $iPageN,
+                    'pageSize' => $iPageSize,
+                    'currentPageCount' => count($arProducts),
+                    'pagesCount' => ceil($paginator->count() / $iPageSize),
+                ]
             ];
         }
 
