@@ -1,5 +1,5 @@
 <template lang="pug">
-  .leaf-title-container
+  .leaf-title-container.w-100
     component.leaf-title-container__title.d-flex.justify-content-center.align-items-center(:is="tagType")
       span {{title}}
 </template>

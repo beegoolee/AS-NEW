@@ -1,10 +1,13 @@
 <template lang="pug">
-  .page-nav(v-if="navItems.length > 1")
-    .page-nav__link(v-for="(navItem, pageNum) in navItems" :class="[{active:pageNum === this.activePage}]")
-      a(:href="navItem.link" ) {{navItem.label}}
+  .page-nav.d-flex(v-if="navItems.length > 1")
+    .page-nav__link(v-for="(navItem, pageNum) in navItems" :class="[{active:navItem.label === this.activePage}]")
+      span(v-if="navItem.label === this.activePage") {{navItem.label}}
+      a(:href="navItem.link" v-else) {{navItem.label}}
 </template>
 
 <script>
+import "@/style/PageNavigation.sass"
+
 export default {
   props: {
     pagenInfo: {
@@ -80,12 +83,13 @@ export default {
       }
 
       // Кнопка Вперед
-      if (activePage > 1 && pagesCount > 1 && activePage !== pagesCount) {
+      if ((activePage => 1) && (pagesCount > 1) && (activePage < pagesCount)) {
         navItems.push(
             this.getNavItem('>', activePage + 1)
         );
       }
 
+      console.log(navItems);
       return navItems;
     }
   },

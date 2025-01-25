@@ -1,10 +1,10 @@
 <template lang="pug">
-  .catalog-page.d-flex.flex-wrap
-    h1.w-100 {{pageType}}
+  .catalog-page.d-flex.flex-wrap.container
+    leaf-title(:title="pageTitle")
     catalog-left-menu(v-if="pageType !== 'product'")
     product-detail(v-if="pageType === 'product'" :product="products[0]")
     products-list(v-else :products="products")
-    page-navigation(:pagenInfo="pagenInfo" :pagePath="this.url")
+    page-navigation.w-100.justify-content-center(:pagenInfo="pagenInfo" :pagePath="this.url")
 </template>
 
 <script>
@@ -15,9 +15,11 @@ import ProductsList from "@/components/ProductsList.vue";
 import ProductDetail from "@/components/ProductDetail.vue";
 import CatalogLeftMenu from "@/components/CatalogLeftMenu.vue";
 import PageNavigation from "@/components/PageNavigation.vue";
+import LeafTitle from "@/components/LeafTitle.vue";
 
 export default {
   components: {
+    LeafTitle,
     ProductsList,
     ProductDetail,
     CatalogLeftMenu,
@@ -41,6 +43,10 @@ export default {
         type: Array,
         value: []
       },
+      pageTitle:{
+        type: String,
+        value: ''
+      }
     }
   },
   created: function () {
@@ -51,6 +57,7 @@ export default {
       this.products = res.data.products;
       this.sections = res.data.sections;
       this.pageType = res.data.pageType;
+      this.pageTitle = res.data.pageTitle;
       this.pagenInfo = res.data.pagenInfo;
     });
 

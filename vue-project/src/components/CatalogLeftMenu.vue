@@ -1,7 +1,7 @@
 <template lang="pug">
   .catalog-page__left-menu.col-2(v-if="pageType!=='product'")
     .catalog-page__left-menu-item
-      a(href="/catalog/") Весь каталог
+      a(href="/catalog/") Все товары
     .catalog-page__left-menu-item(v-for="item in menuItems" :class="[{'active': item.url === currentUrl}]")
       a(:href="item.url") {{item.name}}
 </template>

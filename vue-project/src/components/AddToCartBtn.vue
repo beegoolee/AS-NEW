@@ -1,13 +1,18 @@
 <template lang="pug">
-  .add-to-cart-btn Купить
+  .add-to-cart-btn {{label}}
 </template>
 
 <script>
+import "@/style/AddToCartBtn.sass"
 
 export default {
   props: {
     productId: {
       type: Number
+    },
+    label: {
+      type: String,
+      value: ""
     }
   }
 }

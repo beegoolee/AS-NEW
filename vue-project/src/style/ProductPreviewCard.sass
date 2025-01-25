@@ -1,6 +1,23 @@
 @import "base.sass"
 
 .product-preview-card
-  outline: 1px solid $font-grey
+  padding: 25px
+  outline: 1px solid $light-grey
+  cursor: pointer
+
+  &:hover
+    box-shadow: 2px 2px 10px 5px $box-shadow-grey
+
   & > img
     max-height: 250px
+    margin-bottom: 25px
+
+  &__prices
+    font-size: 21px
+    font-weight: bold
+
+  &__title
+    text-align: center
+
+  &__buy-block
+    margin-top: 25px
