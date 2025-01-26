@@ -1,5 +1,5 @@
 <template lang="pug">
-  .add-to-cart-btn {{label}}
+  .add-to-cart-btn(@click="afterAddToCart()") {{label}}
 </template>
 
 <script>
@@ -13,6 +13,11 @@ export default {
     label: {
       type: String,
       value: ""
+    }
+  },
+  methods: {
+    afterAddToCart() {
+      alert("Продукт с ID " + this.productId + " добавлен в корзину");
     }
   }
 }
