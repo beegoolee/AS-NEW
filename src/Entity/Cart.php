@@ -57,7 +57,7 @@ class Cart
         return $this->IsOrder;
     }
 
-    public function setOrder(bool $IsOrder): static
+    public function setIsOrder(bool $IsOrder): static
     {
         $this->IsOrder = $IsOrder;
 
