@@ -1,7 +1,7 @@
 <template lang="pug">
     .page
       Header
-      RouterView
+      RouterView.container
       Footer
 </template>
 

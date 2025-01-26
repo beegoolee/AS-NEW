@@ -1,5 +1,5 @@
 <template lang="pug">
-  .catalog-page.d-flex.flex-wrap.container
+  .catalog-page.d-flex.flex-wrap
     leaf-title(:title="pageTitle")
     catalog-left-menu(v-if="pageType !== 'product'")
     product-detail(v-if="pageType === 'product'" :product="products[0]")

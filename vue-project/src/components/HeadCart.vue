@@ -1,5 +1,5 @@
 <template lang="pug">
-  .head-cart
+  a.head-cart(href="/cart/")
     img(src="@/assets/cart.svg")
     span {{cartItemsCount}}
 </template>
