@@ -1,9 +1,10 @@
 <template lang="pug">
-  .add-to-cart-btn(@click="afterAddToCart()") {{label}}
+  .add-to-cart-btn(@click="addToCart()") {{label}}
 </template>
 
 <script>
 import "@/style/AddToCartBtn.sass"
+import axios from "axios";
 
 export default {
   props: {
@@ -16,8 +17,17 @@ export default {
     }
   },
   methods: {
-    afterAddToCart() {
-      alert("Продукт с ID " + this.productId + " добавлен в корзину");
+    addToCart() {
+      let obSend = {
+        'userId': 3,
+        'action': 'add',
+        'product': this.productId,
+        'quantity': 1
+      }
+
+      axios.post("https://127.0.0.1:8000/api/app_edit_user_cart/", obSend, {}).then((res) => {
+
+      });
     }
   }
 }
