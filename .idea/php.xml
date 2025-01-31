@@ -65,11 +65,30 @@
       <path value="$PROJECT_DIR$/symfony_ase-new/vendor/symfony/process" />
       <path value="$PROJECT_DIR$/symfony_ase-new/vendor/doctrine/doctrine-fixtures-bundle" />
       <path value="$PROJECT_DIR$/symfony_ase-new/vendor/doctrine/data-fixtures" />
+      <path value="$PROJECT_DIR$/symfony_ase-new/vendor/symfony/security-csrf" />
+      <path value="$PROJECT_DIR$/symfony_ase-new/vendor/symfony/clock" />
+      <path value="$PROJECT_DIR$/symfony_ase-new/vendor/symfony/password-hasher" />
+      <path value="$PROJECT_DIR$/symfony_ase-new/vendor/symfony/property-info" />
+      <path value="$PROJECT_DIR$/symfony_ase-new/vendor/symfony/property-access" />
+      <path value="$PROJECT_DIR$/symfony_ase-new/vendor/symfony/type-info" />
+      <path value="$PROJECT_DIR$/symfony_ase-new/vendor/symfony/security-bundle" />
+      <path value="$PROJECT_DIR$/symfony_ase-new/vendor/symfony/security-http" />
+      <path value="$PROJECT_DIR$/symfony_ase-new/vendor/symfony/security-core" />
+      <path value="$PROJECT_DIR$/symfony_ase-new/vendor/psr/clock" />
+      <path value="$PROJECT_DIR$/symfony_ase-new/vendor/symfony/translation-contracts" />
+      <path value="$PROJECT_DIR$/symfony_ase-new/vendor/lcobucci/clock" />
+      <path value="$PROJECT_DIR$/symfony_ase-new/vendor/lcobucci/jwt" />
+      <path value="$PROJECT_DIR$/symfony_ase-new/vendor/lexik/jwt-authentication-bundle" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.2" />
   <component name="PhpStanOptionsConfiguration">
     <option name="transferred" value="true" />
+  </component>
+  <component name="PhpUnit">
+    <phpunit_settings>
+      <PhpUnitSettings custom_loader_path="$PROJECT_DIR$/symfony_ase-new/vendor/autoload.php" />
+    </phpunit_settings>
   </component>
   <component name="PsalmOptionsConfiguration">
     <option name="transferred" value="true" />

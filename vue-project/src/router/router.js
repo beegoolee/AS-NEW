@@ -20,7 +20,7 @@ const router = createRouter({
         },
         {
             name: 'auth-reg',
-            path: '/register/',
+            path: '/login/',
             component: () => import('@/pages/RegisterAuthPage.vue')
         },
         {

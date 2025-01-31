@@ -23,7 +23,7 @@ export default {
     tryToAuth() {
       let obSend = {
         'password': this.password,
-        'login': this.login,
+        'username': this.login,
       };
 
       this.serviceMsg = "";

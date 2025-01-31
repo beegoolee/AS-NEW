@@ -19,7 +19,6 @@ export default {
   methods: {
     addToCart() {
       let obSend = {
-        'userId': 3,
         'action': 'add',
         'product': this.productId,
         'quantity': 1

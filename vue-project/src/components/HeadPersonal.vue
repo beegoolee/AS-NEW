@@ -1,5 +1,5 @@
 <template lang="pug">
-  a.head-personal(href="/personal/")
+  a.head-personal(href="/login/")
     span(v-if="canAuth") Вход
     img(src="@/assets/profile.svg")
 </template>

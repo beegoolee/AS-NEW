@@ -23,7 +23,7 @@ export default {
     tryToRegister() {
       let obSend = {
         'password': this.password,
-        'login': this.login,
+        'username': this.login,
       };
 
       this.serviceMsg = "";
