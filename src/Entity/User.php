@@ -3,91 +3,106 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User
+#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $Login = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $PasswordHash = null;
+    #[ORM\Column(length: 180)]
+    private ?string $email = null;
 
     /**
-     * @var Collection<int, Cart>
+     * @var list<string> The user roles
      */
-    #[ORM\OneToMany(targetEntity: Cart::class, mappedBy: 'Owner')]
-    private Collection $carts;
+    #[ORM\Column]
+    private array $roles = [];
 
-    public function __construct()
-    {
-        $this->carts = new ArrayCollection();
-    }
+    /**
+     * @var string The hashed password
+     */
+    #[ORM\Column]
+    private ?string $password = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getLogin(): ?string
+    public function getEmail(): ?string
     {
-        return $this->Login;
+        return $this->email;
     }
 
-    public function setLogin(string $Login): static
+    public function setEmail(string $email): static
     {
-        $this->Login = $Login;
-
-        return $this;
-    }
-
-    public function getPasswordHash(): ?string
-    {
-        return $this->PasswordHash;
-    }
-
-    public function setPasswordHash(string $Password): static
-    {
-        $this->PasswordHash = md5($Password);
+        $this->email = $email;
 
         return $this;
     }
 
     /**
-     * @return Collection<int, Cart>
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
      */
-    public function getCarts(): Collection
+    public function getUserIdentifier(): string
     {
-        return $this->carts;
+        return (string) $this->email;
     }
 
-    public function addCart(Cart $cart): static
+    /**
+     * @see UserInterface
+     *
+     * @return list<string>
+     */
+    public function getRoles(): array
     {
-        if (!$this->carts->contains($cart)) {
-            $this->carts->add($cart);
-            $cart->setOwner($this);
-        }
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    /**
+     * @param list<string> $roles
+     */
+    public function setRoles(array $roles): static
+    {
+        $this->roles = $roles;
 
         return $this;
     }
 
-    public function removeCart(Cart $cart): static
+    /**
+     * @see PasswordAuthenticatedUserInterface
+     */
+    public function getPassword(): ?string
     {
-        if ($this->carts->removeElement($cart)) {
-            // set the owning side to null (unless already changed)
-            if ($cart->getOwner() === $this) {
-                $cart->setOwner(null);
-            }
-        }
+        return $this->password;
+    }
+
+    public function setPassword(string $password): static
+    {
+        $this->password = $password;
 
         return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials(): void
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
 }

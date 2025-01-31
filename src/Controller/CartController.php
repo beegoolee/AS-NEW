@@ -6,6 +6,7 @@ use App\Entity\Cart;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
@@ -34,7 +35,7 @@ class CartController extends AbstractController
     }
 
     #[Route('/api/app_edit_user_cart/', name: 'app_get_user_actual_cart', methods: ['POST'])]
-    public function editUserCart(EntityManagerInterface $em, Request $request): JsonResponse
+    public function editUserCart(Security $security, EntityManagerInterface $em, Request $request): JsonResponse
     {
         $arRequest = $request->toArray();
         try {
