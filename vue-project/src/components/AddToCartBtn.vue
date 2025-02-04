@@ -24,7 +24,7 @@ export default {
         'quantity': 1
       }
 
-      axios.post("https://127.0.0.1:8000/api/app_edit_user_cart/", obSend, {}).then((res) => {
+      axios.post(this.$store.getters.getApiHost() + "/api/user/edit_cart/", obSend, this.$store.getters.getAxiosUserConfig()).then((res) => {
 
       });
     }

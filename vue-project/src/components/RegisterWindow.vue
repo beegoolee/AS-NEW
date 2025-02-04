@@ -29,7 +29,7 @@ export default {
       this.serviceMsg = "";
 
       axios.post(
-          "https://127.0.0.1:8000/api/register_user/",
+          this.$store.getters.getApiHost() + "/api/register_user/",
           obSend
       ).then(res => {
         this.serviceMsg = res.data.message;

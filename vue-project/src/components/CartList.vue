@@ -20,7 +20,7 @@ export default {
     }
   },
   created() {
-    axios.get("https://127.0.0.1:8000/api/app_get_user_cart/3").then(res => {
+    axios.get(this.$store.getters.getApiHost() + "/api/user/get_cart/", this.$store.getters.getAxiosUserConfig()).then(res => {
       this.cart = res.data;
     })
   }

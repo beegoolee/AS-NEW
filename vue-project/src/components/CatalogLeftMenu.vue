@@ -29,7 +29,7 @@ export default {
     const route = useRoute();
     this.currentUrl = route.path;
 
-    axios.get('https://127.0.0.1:8000/api/catalog_menu/').then(res => {
+    axios.get(this.$store.getters.getApiHost() + '/api/catalog_menu/').then(res => {
       this.menuItems = res.data;
     });
   }

@@ -9,6 +9,7 @@
 <script>
 import "@/style/AuthWindow.sass"
 import axios from "axios";
+import VueCookies from 'vue-cookie';
 
 export default {
   name: "RegisterWindow",
@@ -29,12 +30,12 @@ export default {
       this.serviceMsg = "";
 
       axios.post(
-          "https://127.0.0.1:8000/api/auth_user/",
+          this.$store.getters.getApiHost() + "/api/auth_user/",
           obSend
       ).then(res => {
-        this.serviceMsg = res.data.message;
-
-        if (res.data.success === true) {
+        if (res.data.token) {
+          $cookies.set('token', res.data.token); // TODO: расставить токенам правильный TTL
+          $cookies.set('refresh_token', res.data.refresh_token);
           setTimeout(() => {
             location.reload();
           }, 2000);
