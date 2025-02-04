@@ -15,14 +15,8 @@ import {useRoute} from "vue-router";
 export default {
   data: function () {
     return {
-      currentUrl: {
-        type: String,
-        value: ''
-      },
-      menuItems: {
-        type: Array,
-        value: []
-      }
+      currentUrl: '',
+      menuItems: []
     }
   },
   created() {

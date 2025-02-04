@@ -27,26 +27,11 @@ export default {
   },
   data: function () {
     return {
-      products: {
-        type: Array,
-        value: []
-      },
-      sections: {
-        type: Array,
-        value: []
-      },
-      pageType: {
-        type: String,
-        value: 'catalog' //или product или section
-      },
-      pagenInfo: {
-        type: Array,
-        value: []
-      },
-      pageTitle:{
-        type: String,
-        value: ''
-      }
+      products: [],
+      sections: [],
+      pageType: 'catalog', //или product или section
+      pagenInfo: [],
+      pageTitle: ''
     }
   },
   created: function () {

@@ -1,7 +1,6 @@
 <template lang="pug">
-  .cart-page Корзина
+  .cart-page Оформление заказа))
     CartList
-    router-link(:to="{'name' : 'checkout'}") Оформить заказ
 </template>
 
 <script>

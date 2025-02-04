@@ -18,7 +18,7 @@ export default {
   computed: {
     canAuth() {
       let isAuthorized = false;
-  console.log(this.$store.getters.getAxiosUserConfig());
+
       axios.get(this.$store.getters.getApiHost() + "/api/user/is_authorized/", this.$store.getters.getAxiosUserConfig()).then(res => {
         isAuthorized = res.data.is_authorized;
         this.username = res.data.username;

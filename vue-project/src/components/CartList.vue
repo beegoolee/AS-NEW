@@ -1,6 +1,10 @@
 <template lang="pug">
   .cart-list
-    .cart-list__item.d-flex.align-items-center(v-for="(productData, productId) in cart") Продукт с id {{productId}} в количестве {{productData.quantity}}
+    .cart-list__item.d-flex.align-items-center.justify-content-between(v-for="(productData, productId) in cart")
+      img(:src="productData.img" :alt="productData.name")
+      a(:href="productData.url") {{productData.name}}
+      span Количество: {{productData.quantity}}
+      span Цена: {{productData.price}} ₽
       AddToCartBtn(:product-id="productId")
 </template>
 
@@ -13,10 +17,7 @@ export default {
   components: {AddToCartBtn},
   data: function () {
     return {
-      cart: {
-        type: Array,
-        value: []
-      }
+      cart: []
     }
   },
   created() {

@@ -34,8 +34,8 @@ export default {
           obSend
       ).then(res => {
         if (res.data.token) {
-          $cookies.set('token', res.data.token); // TODO: расставить токенам правильный TTL
-          $cookies.set('refresh_token', res.data.refresh_token);
+          $cookies.set('token', res.data.token, 1);
+          $cookies.set('refresh_token', res.data.refresh_token, 30);
           setTimeout(() => {
             location.reload();
           }, 2000);
