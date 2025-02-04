@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Cart;
+use App\Entity\Product;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -24,12 +25,32 @@ class CartController extends AbstractController
         try {
             $user = $this->getUser();
 
+            // получаем товары из корзины (id и кол-во)
             $cartRepo = $em->getRepository(Cart::class);
             $actualCart = $cartRepo->getUserActualCart($user->getId());
-            dd($actualCart);
-            $arActualCartProductIDs = $actualCart->Products;
+            $arCartProducts = $actualCart->getProducts();
+
+            // по id товаров получаем данные оных (названия, картинки и тд)
+            $productsRepo = $em->getRepository(Product::class);
+            $arCartProductsIDs = array_keys($arCartProducts);
+
+            // TODO вместо findBy - прописать в репозитории кастомный метод для получения только урла, цены, картинки и названия на основе queryBuilder-a
+            $arCartProductsData = $productsRepo->findBy(['id' => $arCartProductsIDs]);
+            $arCartResult = [];
+
+            foreach($arCartProductsData as $oCartProductData) {
+                $arCartResult[$oCartProductData->getId()] = [
+                    'id' => $oCartProductData->getId(),
+                    'quantity' => $arCartProducts[$oCartProductData->getId()]['quantity'],
+                    'img' => $oCartProductData->getImage(),
+                    'name' => $oCartProductData->getName(),
+                    'price' => $oCartProductData->getPrice(),
+                    'url' => $oCartProductData->getUrl(),
+                ];
+            }
+
             // получаем корзину юзера (актуальную, тобишь, последнюю из БД)
-            return $this->json($actualCart->getProducts());
+            return $this->json($arCartResult);
         } catch (\Exception $e) {
             return $this->json(['error' => $e->getMessage()]);
         }
