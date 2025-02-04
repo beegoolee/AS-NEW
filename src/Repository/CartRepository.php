@@ -31,13 +31,13 @@ class CartRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Cart
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function getUserActualCart($userId): ?Cart
+    {
+        return $this->createQueryBuilder('cart')
+            ->andWhere('cart.Owner = :userid')
+            ->setParameter('userid', $userId)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 }

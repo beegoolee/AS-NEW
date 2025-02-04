@@ -21,9 +21,9 @@ class AuthRegController extends AbstractController
     #[Route('/api/register_user/', name: 'app_reg', methods: ['POST'])]
     public function register(UserPasswordHasherInterface $hasher, EntityManagerInterface $em, Request $request): JsonResponse
     {
-        $arRequest = $request->toArray();
-
         try {
+            $arRequest = $request->toArray();
+
             $obUser = new User();
             $userRepo = $em->getRepository(User::class);
             // Проверяем валидность логина, ставим его, если все ок и если он еще не зарегистрирован в базе
@@ -37,10 +37,10 @@ class AuthRegController extends AbstractController
                 $em->persist($obUser);
                 $em->flush();
             }
+
+            return $this->json(['success' => true, 'message' => 'Регистрация успешна!']);
         } catch (\Exception $e) {
             return $this->json(['success' => false, 'message' => $e->getMessage()]);
         }
-
-        return $this->json(['success' => true, 'message' => 'Регистрация успешна!']);
     }
 }

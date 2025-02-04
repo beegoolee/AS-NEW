@@ -3,46 +3,47 @@
 namespace App\Controller;
 
 use App\Entity\Cart;
-use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 
 class CartController extends AbstractController
 {
-    #[Route('/api/app_get_user_order_history/{userId}', name: 'app_get_user_orders', methods: ['GET'])]
-    public function getUserOrderHistory(User $cartOwner): JsonResponse
+    #[Route('/api/user/get_order_history/', name: 'user_get_order_history', methods: ['GET'])]
+    public function getUserOrderHistory(): JsonResponse
     {
         // получаем ВСЕ закрытые корзину (сиречь - заказы) юзера
         return $this->json([]);
     }
 
-    #[Route('/api/app_get_user_cart/{user}', name: 'app_get_user_cart', methods: ['GET'])]
-    public function getUserCart(User $user, EntityManagerInterface $em): JsonResponse
+    #[Route('/api/user/get_cart/', name: 'user_get_cart', methods: ['GET'])]
+    public function getUserCart(EntityManagerInterface $em): JsonResponse
     {
         try {
+            $user = $this->getUser();
+
             $cartRepo = $em->getRepository(Cart::class);
-            $actualCart = $cartRepo->findOneBy(['Owner' => $user->getId(), 'IsOrder' => false]);
+            $actualCart = $cartRepo->getUserActualCart($user->getId());
+            dd($actualCart);
+            $arActualCartProductIDs = $actualCart->Products;
+            // получаем корзину юзера (актуальную, тобишь, последнюю из БД)
+            return $this->json($actualCart->getProducts());
         } catch (\Exception $e) {
             return $this->json(['error' => $e->getMessage()]);
         }
-
-        // получаем корзину юзера (актуальную, тобишь, последнюю из БД)
-        return $this->json($actualCart->getProducts());
     }
 
-    #[Route('/api/app_edit_user_cart/', name: 'app_get_user_actual_cart', methods: ['POST'])]
-    public function editUserCart(Security $security, EntityManagerInterface $em, Request $request): JsonResponse
+    #[Route('/api/user/edit_cart/', name: 'user_edit_actual_cart', methods: ['POST'])]
+    public function editUserCart(EntityManagerInterface $em, Request $request): JsonResponse
     {
-        $arRequest = $request->toArray();
         try {
-            $cartOwner = $em->getRepository(User::class)->findOneBy(['id' => $arRequest['userId']]);
+            $user = $this->getUser();
+            $arRequest = $request->toArray();
 
             $cartRepo = $em->getRepository(Cart::class);
-            $actualCart = $cartRepo->findOneBy(['Owner' => $cartOwner->getId(), 'IsOrder' => false]);
+            $actualCart = $cartRepo->findOneBy(['Owner' => $user->getId(), 'IsOrder' => false]);
 
             if ($actualCart) {
                 // Добавляем, изменяем количество, удаляем товар из актуальной корзины юзера
@@ -65,7 +66,7 @@ class CartController extends AbstractController
             } else {
                 // нет корзины у человека, делаем
                 $cart = new Cart();
-                $cart->setOwner($cartOwner);
+                $cart->setOwner($user);
                 $cart->setIsOrder(false);
 
                 $cart->setProducts([
@@ -76,10 +77,10 @@ class CartController extends AbstractController
                 $em->persist($cart);
                 $em->flush();
             }
+
+            return $this->json(['success' => true]);
         } catch (\Exception $e) {
             return $this->json(['error' => $e->getMessage()]);
         }
-
-        return $this->json(['success' => true]);
     }
 }
