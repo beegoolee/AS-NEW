@@ -45,7 +45,7 @@ services:
       dockerfile: Dockerfile
     container_name: shop-front
     volumes:
-      - .:/var/www/shop-front
+      - ./vue-project:/var/www/shop-front
     ports:
       - "5173:5173"
     networks:

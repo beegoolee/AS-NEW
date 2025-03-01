@@ -34,8 +34,8 @@ export default {
           obSend
       ).then(res => {
         if (res.data.token) {
-          $cookies.set('token', res.data.token, 1);
-          $cookies.set('refresh_token', res.data.refresh_token, 30);
+          $cookies.set('token', res.data.token, {path: '/', secure: true, expires: '1d'});
+          $cookies.set('refresh_token', res.data.refresh_token, {path: '/', expires: '30d'});
           setTimeout(() => {
             location.reload();
           }, 2000);
