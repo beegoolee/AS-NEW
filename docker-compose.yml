@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  nginx-service:
+    image: nginx:stable-alpine
+    container_name: shop-nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./symfony_ase-new:/var/www/project
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - nginx-php82-mysql8
+    depends_on:
+      - shop-back
+      - shop-mysql
+
+  shop-back:
+    build:
+      context: ./symfony_ase-new
+      dockerfile: Dockerfile
+    container_name: shop-back
+    volumes:
+      - ./symfony_ase-new:/var/www/project
+    networks:
+      - nginx-php82-mysql8
+    depends_on:
+      - shop-mysql
+
+  shop-mysql:
+    image: mysql:8.0.32
+    container_name: shop-mysql
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    networks:
+      - nginx-php82-mysql8
+
+  shop-front:
+    build:
+      context: ./vue-project
+      dockerfile: Dockerfile
+    container_name: shop-front
+    volumes:
+      - .:/var/www/shop-front
+    ports:
+      - "5173:5173"
+    networks:
+      - nginx-php82-mysql8
+
+networks:
+  nginx-php82-mysql8:
+    driver: bridge
+
+volumes:
+  db_data:  # Название тома, используемого MySQL

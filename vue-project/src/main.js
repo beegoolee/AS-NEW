@@ -10,7 +10,7 @@ import $cookies from "vue-cookie";
 const store = createStore({
     state: {
         apiHost(){
-            return "https://127.0.0.1:8000";
+            return "http://localhost:8080";
         },
         axiosUserConfig(){
             return {
