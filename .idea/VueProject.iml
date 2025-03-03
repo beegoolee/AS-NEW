@@ -73,6 +73,21 @@
       <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/symfony/security-http" />
       <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/symfony/translation-contracts" />
       <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/symfony/type-info" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/elastic/transport" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/elasticsearch/elasticsearch" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/guzzlehttp/guzzle" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/guzzlehttp/promises" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/guzzlehttp/psr7" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/open-telemetry/api" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/open-telemetry/context" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/php-http/discovery" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/php-http/httplug" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/php-http/promise" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/psr/http-client" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/psr/http-factory" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/psr/http-message" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/ralouphie/getallheaders" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/nelmio/cors-bundle" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
