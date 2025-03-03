@@ -80,9 +80,9 @@ class CatalogController extends AbstractController
                     $arCurProduct = current($arProducts);
                     if (!empty($arCurProduct)) {
                         $arReturn = [
-                            'products' => $arProducts,
+                            'products' => [$arCurProduct],
                             'pageType' => 'product',
-                            'pageTitle' => "Заголовок деталки"
+                            'pageTitle' => $arCurProduct['name'],
                         ];
                     } else {
                         // ничего не нашли, 404, возвращаем пустой arReturn по-умолчанию
