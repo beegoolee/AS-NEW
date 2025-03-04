@@ -1,0 +1,14 @@
+@import "Variables"
+
+.product-review-add-form
+
+  &__rating-stars
+  &__rating-stars__item
+    background-image: url("@/assets/rating-star-grey.svg")
+    width: 20px
+    height: 20px
+    background-size: contain
+    background-repeat: no-repeat
+    cursor: pointer
+    &.active
+      background-image: url("@/assets/rating-star-gold.svg")
