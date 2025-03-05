@@ -10,7 +10,7 @@ services:
       - ./symfony_ase-new:/var/www/project
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
     networks:
-      - nginx-php82-mysql8
+      - my-network
     depends_on:
       - shop-back
       - shop-mysql
@@ -23,7 +23,7 @@ services:
     volumes:
       - ./symfony_ase-new:/var/www/project
     networks:
-      - nginx-php82-mysql8
+      - my-network
     depends_on:
       - shop-mysql
 
@@ -37,7 +37,7 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=root
     networks:
-      - nginx-php82-mysql8
+      - my-network
 
   shop-front:
     build:
@@ -49,10 +49,24 @@ services:
     ports:
       - "5173:5173"
     networks:
-      - nginx-php82-mysql8
+      - my-network
+
+  shop-elastic:
+    image: elasticsearch:8.16.5
+    container_name: shop-elastic
+    environment:
+      - discovery.type=single-node
+      - node.name=shop-elastic
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+      - xpack.security.enabled=false
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    networks:
+      - my-network
 
 networks:
-  nginx-php82-mysql8:
+  my-network:
     driver: bridge
 
 volumes:
