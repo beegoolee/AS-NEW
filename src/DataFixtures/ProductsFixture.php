@@ -39,8 +39,7 @@ class ProductsFixture extends Fixture
 
             $product->setImage($sGeneratedPicPath);
 
-            $product->setPrice(mt_rand(10, 100));
-            $product->setRating(mt_rand(1, 5));
+            $product->setPrice(mt_rand(100, 1000));
             $product->setProductId($i);
 
             $manager->persist($product);

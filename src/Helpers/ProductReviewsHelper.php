@@ -17,10 +17,14 @@ class ProductReviewsHelper
     /*
      * Обновление рейтинга товаров на основании оставленных на них отзывов
      * */
-    public function updateProductsRating()
+    public function updateProductsRating(?string $sUpdatedProductID)
     {
         $productReviewsRepo = $this->entityManager->getRepository(ProductReview::class);
-        $arProductsReviews = $productReviewsRepo->findAll();
+        if ($sUpdatedProductID) {
+            $arProductsReviews = $productReviewsRepo->findBy(['Product' => $sUpdatedProductID]);
+        } else {
+            $arProductsReviews = $productReviewsRepo->findAll();
+        }
 
         $arReviewedProducts = [];
         foreach ($arProductsReviews as $productReview) {

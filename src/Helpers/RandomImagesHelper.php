@@ -25,8 +25,8 @@ class RandomImagesHelper
                     'json' => [
                         "model" => "black-forest-labs/FLUX.1-dev",
                         "prompt" => $sPrompt,
-                        "height" => 1024,
-                        "width" => 1024,
+                        "height" => 260,
+                        "width" => 250,
                         "guidance_scale" => 1,
                         "steps" => 10,
                         "n" => 4

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Entity\ProductReview;
+use App\Helpers\ProductReviewsHelper;
 use App\Repository\ProductReviewRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,7 +15,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class ProductReviewsController extends AbstractController
 {
     #[Route('/api/product_review/add/', name: 'add_product_review', methods: ['POST'])]
-    public function addProductReview(EntityManagerInterface $em, Request $request): JsonResponse
+    public function addProductReview(EntityManagerInterface $em, Request $request, ProductReviewsHelper $prh): JsonResponse
     {
         $arRequest = $request->toArray();
 
@@ -30,6 +31,7 @@ class ProductReviewsController extends AbstractController
         $productReview->setText($arRequest['text']);
         $em->persist($productReview);
         $em->flush();
+        $prh->updateProductsRating($arRequest['product_id']);
 
         return $this->json(['success' => true]);
     }
