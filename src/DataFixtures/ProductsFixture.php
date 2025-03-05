@@ -6,6 +6,7 @@ use App\Entity\CatalogSection;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\Product;
+use App\Helpers\RandomImagesHelper;
 
 class ProductsFixture extends Fixture
 {
@@ -22,6 +23,8 @@ class ProductsFixture extends Fixture
         }
         $manager->flush();
 
+        $sGeneratedPicPath = RandomImagesHelper::getImageByPrompt("big realistic fluffy white cat on not cut watermelon");
+
         // Добавляем товары с привязкой к разделам
         $arSections = $manager->getRepository(CatalogSection::class)->findAll();
         for ($i = 0; $i < 2000; $i++) {
@@ -33,7 +36,9 @@ class ProductsFixture extends Fixture
             $sSlug = 'product_' . $i;
             $product->setSlug($sSlug);
             $product->setUrl( $parentSection->getUrl() . $sSlug . '/');
-            $product->setImage("https://asevalar.ru/upload/iblock/a66/6qr9fio0ckmbin1h7f4vclnfiszb67yl_480_480.jpg");
+
+            $product->setImage($sGeneratedPicPath);
+
             $product->setPrice(mt_rand(10, 100));
             $product->setRating(mt_rand(1, 5));
             $product->setProductId($i);
