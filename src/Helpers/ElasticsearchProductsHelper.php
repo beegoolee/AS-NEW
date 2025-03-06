@@ -42,7 +42,7 @@ class ElasticsearchProductsHelper
 
         $arReturn = [];
         foreach ($response['hits']['hits'] as $hit) {
-            $arReturn[$hit['_id']] = $hit['_source'];
+            $arReturn[] = $hit['_source'];
         }
 
         return $arReturn;
@@ -70,6 +70,9 @@ class ElasticsearchProductsHelper
                                     'type' => 'text',
                                     'analyzer' => 'russian',
                                 ],
+                                'url' => [
+                                  'type' => 'keyword',
+                                ],
                                 'product_id' => [
                                     'type' => 'integer',
                                 ]
@@ -90,6 +93,7 @@ class ElasticsearchProductsHelper
                     'body' => [
                         'name' => $product->getName(),
                         'product_id' => $product->getId(),
+                        'url' => $product->getUrl(),
                     ]
                 ]
             );
