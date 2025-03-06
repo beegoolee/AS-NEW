@@ -18,7 +18,7 @@ export default {
     }
   },
   created() {
-    axios.get(this.$store.getters.getApiHost() + "/api/catalog_menu/").then(res => {
+    axios.get(this.$store.getters.getApiHost() + "/api/catalog_menu/", this.$store.getters.getAxiosUserConfig()).then(res => {
       this.menuItems = res.data;
     });
   }

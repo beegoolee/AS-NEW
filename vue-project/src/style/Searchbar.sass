@@ -2,6 +2,7 @@
 
 .searchbar
   z-index: 10
+  position: relative
   &__container
     position: relative
     width: 320px
@@ -27,3 +28,9 @@
       width: 100%
       &:focus
         outline: none
+  &__suggestions-list
+    position: absolute
+    background-color: white
+    padding: 15px
+    width: 100%
+    outline: 1px solid $font-grey
