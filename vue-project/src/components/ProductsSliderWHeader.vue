@@ -1,8 +1,8 @@
 <template lang="pug">
   div
-    LeafTitle(:title="sliderData.title" :tagType="'h1'")
-    Swiper.container(v-if="sliderData.slides && sliderData.slides.length > 0" v-bind="sliderOptions")
-      SwiperSlide(v-for="item in sliderData.slides")
+    LeafTitle(:title="title" :tagType="'h1'")
+    Swiper.container(v-if="arSlides" v-bind="sliderOptions")
+      SwiperSlide(v-for="item in arSlides")
         ProductPreviewCard(:productData="item")
 </template>
 
@@ -12,6 +12,7 @@ import 'swiper/css';
 import LeafTitle from '@/components/LeafTitle.vue';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import ProductPreviewCard from "@/components/ProductPreviewCard.vue";
+import axios from "axios";
 
 export default {
   components: {
@@ -21,10 +22,19 @@ export default {
     SwiperSlide,
   },
   props: {
-    sliderData: {
-      type: Object,
-      default: () => ({}),
-    },
+    code: ''
+  },
+  data() {
+    return {
+      title: '',
+      arSlides: false
+    }
+  },
+  created() {
+    axios.get(this.$store.getters.getApiHost() + "/api/get_product_slider/" + this.code, this.$store.getters.getAxiosUserConfig()).then((res) => {
+      this.title = res.data.slider_title;
+      this.arSlides = res.data.slides;
+    });
   },
   setup() {
     const sliderOptions = {

@@ -1,6 +1,6 @@
 <template lang="pug">
   .leaf-title-container.w-100
-    component.leaf-title-container__title.d-flex.justify-content-center.align-items-center(:is="tagType")
+    h1.leaf-title-container__title.d-flex.justify-content-center.align-items-center
       span {{title}}
 </template>
 
@@ -8,10 +8,6 @@
 import "@/style/LeafTitle.sass"
 export default {
   props:{
-    'tagType': {
-      type: String,
-      default: "h2"
-    },
     'title': {
       type: String
     }

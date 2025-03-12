@@ -88,6 +88,8 @@
       <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/psr/http-message" />
       <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/ralouphie/getallheaders" />
       <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/nelmio/cors-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/vendor/fzaninotto/faker" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony_ase-new/var" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

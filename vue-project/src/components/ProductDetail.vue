@@ -7,6 +7,8 @@
         RatingStars(:rating="product.rating")
         p Код товара {{product.slug}}
         p ID товара {{product.id}}
+        p Штрихкод: {{product.barcode}}
+        p Описание товара: {{product.description}}
       .product-detail__buy-block.col-4
         p.product-detail__price {{product.price}} ₽
         AddToCartBtn(:productId="product.id")
