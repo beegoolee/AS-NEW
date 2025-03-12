@@ -31,6 +31,7 @@ class CatalogController extends AbstractController
 
             if ($url && $url != '/catalog/') {
                 // есть адрес раздела ИЛИ товара, определяем чей адрес. Сначала разделы - их априори меньше
+                //TODO сджоинить обе таблицы разделов и продуктов в одну и найти по полю URL нужную сущность, от того плясать далее
                 $sectionsRepo = $em->getRepository(CatalogSection::class);
                 $query = $sectionsRepo->createQueryBuilder('sections')->setParameter('url', $url)->andWhere('sections.url = :url')->getQuery();
                 $arSections = $query->getArrayResult();
@@ -40,6 +41,7 @@ class CatalogController extends AbstractController
                 if (!empty($arCurSection)) {
                     // получаем товары данного раздела
 
+                    // TODO переделать на join или метод из репо
                     $sSqlQuery = "SELECT product_id FROM product_catalog_section WHERE catalog_section_id = {$arCurSection["id"]}";
                     $arSectionProductsResult = $em->getConnection()->prepare($sSqlQuery)->executeQuery()->fetchAllAssociative();
                     $arSectionProductIDs = [];

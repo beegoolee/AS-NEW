@@ -48,6 +48,12 @@ class Product
     #[ORM\OneToMany(targetEntity: ProductReview::class, mappedBy: 'Product')]
     private Collection $productReviews;
 
+    #[ORM\Column(length: 1000, nullable: true)]
+    private ?string $description = null;
+
+    #[ORM\Column(length: 32)]
+    private ?string $barcode = null;
+
     public function __construct()
     {
         $this->ParentSection = new ArrayCollection();
@@ -193,6 +199,30 @@ class Product
                 $productReview->setProduct(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): static
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getBarcode(): ?string
+    {
+        return $this->barcode;
+    }
+
+    public function setBarcode(string $barcode): static
+    {
+        $this->barcode = $barcode;
 
         return $this;
     }

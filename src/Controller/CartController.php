@@ -28,7 +28,11 @@ class CartController extends AbstractController
             // получаем товары из корзины (id и кол-во)
             $cartRepo = $em->getRepository(Cart::class);
             $actualCart = $cartRepo->getUserActualCart($user->getId());
-            $arCartProducts = $actualCart->getProducts();
+
+            $arCartProducts = [];
+            if($actualCart){
+                $arCartProducts = $actualCart->getProducts();
+            }
 
             // по id товаров получаем данные оных (названия, картинки и тд)
             $productsRepo = $em->getRepository(Product::class);

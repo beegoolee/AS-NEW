@@ -29,7 +29,7 @@ class RandomImagesHelper
                         "width" => 250,
                         "guidance_scale" => 1,
                         "steps" => 10,
-                        "n" => 4
+                        "n" => 1
                     ]
                 ]
             );

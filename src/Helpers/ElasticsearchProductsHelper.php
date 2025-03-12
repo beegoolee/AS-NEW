@@ -30,10 +30,13 @@ class ElasticsearchProductsHelper
             'body' =>
                 [
                     'query' => [
-                        'match' =>
-                            [
-                                'name' => $sSearchText
-                            ]
+                        'match' => [
+                            'name' =>
+                                [
+                                    'query' => $sSearchText,
+                                    'fuzziness' => 'AUTO'
+                                ]
+                        ]
                     ]
                 ]
         ];
@@ -68,16 +71,29 @@ class ElasticsearchProductsHelper
                             'properties' => [
                                 'name' => [
                                     'type' => 'text',
-                                    'analyzer' => 'russian',
+                                    'analyzer' => 'russian_analyzer',
                                 ],
                                 'url' => [
-                                  'type' => 'keyword',
+                                    'type' => 'keyword',
                                 ],
                                 'product_id' => [
                                     'type' => 'integer',
                                 ]
                             ]
                         ],
+                        'analysis' => [
+                            'analyzer' => [
+                                'russian_analyzer' => [
+                                    'type' => 'custom',
+                                    'tokenizer' => 'standard',
+                                    'filter' => [
+                                        'lowercase',
+                                        'russian_stop',
+                                        'russian_stemmer'
+                                    ]
+                                ]
+                            ],
+                        ]
                     ]
                 ]
             );
