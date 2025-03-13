@@ -60,7 +60,10 @@ class ElasticsearchProductsHelper
             throw new \Exception("Elasticsearch claster is down");
         }
 
-        $this->elasticClient->indices()->delete(['index' => self::INDEX_NAME]);
+        if($this->elasticClient->indices()->exists(['index' => self::INDEX_NAME])){
+            $this->elasticClient->indices()->delete(['index' => self::INDEX_NAME]);
+        }
+
         // индекса нет - мы его создаём
         if (!$this->elasticClient->indices()->exists(['index' => self::INDEX_NAME])) {
             $this->elasticClient->indices()->create(

@@ -18,6 +18,12 @@ class AuthRegController extends AbstractController
         // auth realized via lexik jwt bundle. This method needs for route only
     }
 
+    #[Route('/api/user_logout/', name: 'app_logout', methods: ['POST'])]
+    public function userLogout(): JsonResponse
+    {
+
+    }
+
     #[Route('/api/register_user/', name: 'app_reg', methods: ['POST'])]
     public function register(UserPasswordHasherInterface $hasher, EntityManagerInterface $em, Request $request): JsonResponse
     {

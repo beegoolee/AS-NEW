@@ -20,9 +20,6 @@ class Cart
     #[ORM\Column(type: Types::ARRAY, nullable: true)]
     private ?array $Products = null;
 
-    #[ORM\Column]
-    private ?bool $IsOrder = null;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -48,18 +45,6 @@ class Cart
     public function setProducts(?array $Products): static
     {
         $this->Products = $Products;
-
-        return $this;
-    }
-
-    public function isOrder(): ?bool
-    {
-        return $this->IsOrder;
-    }
-
-    public function setIsOrder(bool $IsOrder): static
-    {
-        $this->IsOrder = $IsOrder;
 
         return $this;
     }
