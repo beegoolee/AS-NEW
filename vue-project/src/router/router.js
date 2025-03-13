@@ -19,18 +19,23 @@ const router = createRouter({
             component: () => import('@/pages/404Page.vue'),
         },
         {
-            name: 'auth-reg',
-            path: '/login/',
+            name: 'register',
+            path: '/register/',
             component: () => import('@/pages/RegisterAuthPage.vue')
         },
         {
+            name: 'personal',
+            path: '/personal/',
+            component: () => import('@/pages/PersonalPage.vue')
+        },
+        {
             name: 'cart',
-            path: '/cart',
+            path: '/cart/',
             component: () => import('@/pages/CartPage.vue')
         },
         {
             name: 'checkout',
-            path: '/checkout',
+            path: '/checkout/',
             component: () => import('@/pages/CheckoutPage.vue')
         },
     ]

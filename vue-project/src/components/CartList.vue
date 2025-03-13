@@ -10,20 +10,13 @@
 
 <script>
 import "@/style/CartList.sass"
-import axios from "axios";
 import AddToCartBtn from "@/components/AddToCartBtn.vue";
+import {mapState} from "vuex";
 
 export default {
   components: {AddToCartBtn},
-  data: function () {
-    return {
-      cart: []
-    }
-  },
-  created() {
-    axios.get(this.$store.getters.getApiHost() + "/api/user/get_cart/", this.$store.getters.getAxiosUserConfig()).then(res => {
-      this.cart = res.data;
-    })
+  computed: {
+    ...mapState(['cart'])
   }
 }
 

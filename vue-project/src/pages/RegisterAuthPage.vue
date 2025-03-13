@@ -1,17 +1,25 @@
 <template lang="pug">
-  .reg-auth-page Reg\Auth
+  .reg-auth-page
+    leaf-title(:title="'Регистрация'")
     RegisterWindow
-    AuthWindow
 </template>
 
 <script>
 import RegisterWindow from "@/components/RegisterWindow.vue";
-import AuthWindow from "@/components/AuthWindow.vue";
+import axios from "axios";
+import LeafTitle from "@/components/LeafTitle.vue";
 
 export default {
   components: {
+    LeafTitle,
     RegisterWindow,
-    AuthWindow
+  },
+  created() {
+    axios.get(this.$store.getters.getApiHost() + "/api/user/is_authorized/", this.$store.getters.getAxiosUserConfig()).then(res => {
+      if (res.data.is_authorized === true) {
+        this.$router.push({name: 'personal'});
+      }
+    });
   }
 }
 

@@ -1,7 +1,7 @@
 <template lang="pug">
-  a.head-personal(href="/login/")
-    span(v-if="canAuth") Вход
-    span(v-else-if="username") {{username}}
+  .head-personal
+    a(v-if="isAuth" href="/register/") {{username}}
+    a(v-else href="/personal/")  Вход
     img(src="@/assets/profile.svg")
 </template>
 
@@ -12,20 +12,15 @@ import axios from "axios";
 export default {
   data: function () {
     return {
-      'username': ""
+      username: "",
+      isAuth: false,
     }
   },
-  computed: {
-    canAuth() {
-      let isAuthorized = false;
-
-      axios.get(this.$store.getters.getApiHost() + "/api/user/is_authorized/", this.$store.getters.getAxiosUserConfig()).then(res => {
-        isAuthorized = res.data.is_authorized;
-        this.username = res.data.username;
-      });
-
-      return isAuthorized;
-    }
+  created(){
+    axios.get(this.$store.getters.getApiHost() + "/api/user/is_authorized/", this.$store.getters.getAxiosUserConfig()).then(res => {
+      this.isAuth = res.data.is_authorized;
+      this.username = res.data.username;
+    });
   }
 }
 </script>

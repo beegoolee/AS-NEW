@@ -4,6 +4,8 @@
     input(type="login" v-model="login" placeholder="логин")
     input(type="password" v-model="password"  placeholder="пароль")
     input(type="submit")
+    hr
+    a(href="/register/") Регистрация
 </template>
 
 <script>
@@ -38,7 +40,7 @@ export default {
           $cookies.set('refresh_token', res.data.refresh_token, {path: '/', expires: '30d'});
           setTimeout(() => {
             location.reload();
-          }, 2000);
+          }, 1000);
         }
       });
     }

@@ -6,22 +6,24 @@
 
 <script>
 import "@/style/HeadCart.sass"
-import axios from "axios";
+import {mapState} from "vuex";
 
 export default {
-  data: function () {
-    return {
-      cartSize: 0
+  computed: {
+    ...mapState(['cart']),
+
+    cartSize() {
+      let cart = this.cart,
+          cartSize = 0;
+      Object.values(cart).forEach((item) => {
+        cartSize += item.quantity;
+      })
+
+      return cartSize
     }
   },
-  created: function () {
-    axios.get(this.$store.getters.getApiHost() + "/api/user/get_cart/", this.$store.getters.getAxiosUserConfig()).then(res => {
-      let cart = res.data,
-          self = this;
-      Object.values(cart).forEach((item) => {
-        self.cartSize += item.quantity;
-      })
-    });
+  created() {
+    this.$store.dispatch("triggerUpdateCart");
   }
 }
 </script>

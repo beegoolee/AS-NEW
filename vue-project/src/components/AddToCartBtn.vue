@@ -25,7 +25,7 @@ export default {
       }
 
       axios.post(this.$store.getters.getApiHost() + "/api/user/edit_cart/", obSend, this.$store.getters.getAxiosUserConfig()).then((res) => {
-
+        this.$store.dispatch("triggerUpdateCart");
       });
     }
   }
