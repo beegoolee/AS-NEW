@@ -37,8 +37,15 @@ export default {
   created: function () {
     const route = useRoute();
     this.url = route.path;
+    const params = {
+      pagen: route.query.pagen,
+      pagesize: route.query.pagesize,
+      search: route.query.search,
+      requestedUrl: encodeURIComponent(this.url),
+    };
+
     // В зависимости от урла - получаем от бека либо весь каталог, либо один раздел, либо один товар
-    axios.get(this.$store.getters.getApiHost()+'/api/catalog/' + this.url + '?pagen=' + route.query.pagen + '&pagesize=' + route.query.pagesize).then(res => {
+    axios.get(this.$store.getters.getApiHost()+'/api/catalog/', {params}).then(res => {
       this.products = res.data.products;
       this.sections = res.data.sections;
       this.pageType = res.data.pageType;
