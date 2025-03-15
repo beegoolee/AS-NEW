@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Enums\ProductColorEnum;
 use App\Repository\ProductRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -53,6 +54,15 @@ class Product
 
     #[ORM\Column(length: 32)]
     private ?string $barcode = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $Weight = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $Volume = null;
+
+    #[ORM\Column(nullable: true, enumType: ProductColorEnum::class)]
+    private ?ProductColorEnum $Color = null;
 
     public function __construct()
     {
@@ -223,6 +233,42 @@ class Product
     public function setBarcode(string $barcode): static
     {
         $this->barcode = $barcode;
+
+        return $this;
+    }
+
+    public function getWeight(): ?float
+    {
+        return $this->Weight;
+    }
+
+    public function setWeight(?float $Weight): static
+    {
+        $this->Weight = $Weight;
+
+        return $this;
+    }
+
+    public function getVolume(): ?int
+    {
+        return $this->Volume;
+    }
+
+    public function setVolume(?int $Volume): static
+    {
+        $this->Volume = $Volume;
+
+        return $this;
+    }
+
+    public function getColor(): ?ProductColorEnum
+    {
+        return $this->Color;
+    }
+
+    public function setColor(?ProductColorEnum $Color): static
+    {
+        $this->Color = $Color;
 
         return $this;
     }

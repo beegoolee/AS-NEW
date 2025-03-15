@@ -9,25 +9,23 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Request;
+use App\Helpers\ElasticsearchProductsHelper;
 
 class CatalogController extends AbstractController
 {
-    #[Route('/api/catalog/{url}', name: 'api_catalog', methods: ['GET'], requirements: ["url" => ".+"])]
-    public function getCatalog(EntityManagerInterface $em, Request $request, $url = null): JsonResponse
+    private const CATALOG_PAGE_SIZE_DEFAULT = 9;
+
+    #[Route('/api/catalog/', name: 'api_catalog', methods: ['GET'])]
+    public function getCatalog(EntityManagerInterface $em, Request $request, ElasticsearchProductsHelper $eph): JsonResponse
     {
         try {
             $arReturn = [];
 
             // параметры для пагинации
-            $iPageSize = 9;
-            if (intval($request->query->get('pagesize')) > 0) {
-                $iPageSize = intval($request->query->get('pagesize'));
-            }
+            $iPageSize = intval($request->query->get('pagesize')) > 0 ? intval($request->query->get('pagesize')) : self::CATALOG_PAGE_SIZE_DEFAULT;
+            $iPageN = intval($request->query->get('pagen')) > 0 ? intval($request->query->get('pagen')) : 1;
 
-            $iPageN = 1;
-            if (intval($request->query->get('pagen')) > 0) {
-                $iPageN = intval($request->query->get('pagen'));
-            }
+            $url = urldecode($request->query->get('requestedUrl')) ?? '/catalog/';
 
             if ($url && $url != '/catalog/') {
                 // есть адрес раздела ИЛИ товара, определяем чей адрес. Сначала разделы - их априори меньше
@@ -93,6 +91,15 @@ class CatalogController extends AbstractController
             } else if ($url === '/catalog/') {
                 // урла не пришло, возвращаем весь каталог
 
+                $sSearchQuery = $request->query->get('search');
+                if ($sSearchQuery) {
+                    $arElasticResult = $eph->searchProductByName($sSearchQuery);
+                    $arFilteredProductIDs = [];
+                    array_map(function ($arProduct) use (&$arFilteredProductIDs) {
+                        $arFilteredProductIDs[] = $arProduct["product_id"];
+                    }, $arElasticResult);
+                }
+
                 // получаем все разделы
                 $sectionsRepo = $em->getRepository(CatalogSection::class);
                 $sectionsQuery = $sectionsRepo->createQueryBuilder('sections')->getQuery();
@@ -100,7 +107,13 @@ class CatalogController extends AbstractController
 
                 // получаем товары
                 $productsRepo = $em->getRepository(Product::class);
-                $productsQuery = $productsRepo->createQueryBuilder('products')->getQuery();
+
+                if (isset($arFilteredProductIDs)) {
+                    $productsQuery = $productsRepo->createQueryBuilder('products')->setParameter('ids', $arFilteredProductIDs)->andWhere('products.id IN (:ids)')->getQuery();
+                } else {
+                    $productsQuery = $productsRepo->createQueryBuilder('products')->getQuery();
+                }
+
                 $paginator = new \Doctrine\ORM\Tools\Pagination\Paginator($productsQuery);
                 $productsQuery = $paginator->getQuery()->setFirstResult(($iPageN - 1) * $iPageSize)->setMaxResults($iPageSize);
                 $arProducts = $productsQuery->getArrayResult();

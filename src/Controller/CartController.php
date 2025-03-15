@@ -47,6 +47,10 @@ class CartController extends AbstractController
         // получаем ВСЕ заказы юзера
         try {
             $user = $this->getUser();
+            if(!$user){
+                return $this->json([]);
+            }
+
             $userOrdersCollection = $user->getOrders();
 
             $arOrderHistory = [];
@@ -81,6 +85,10 @@ class CartController extends AbstractController
     {
         try {
             $user = $this->getUser();
+
+            if(!$user){
+                return $this->json([]);
+            }
 
             $actualCart = $user->getActualUserCart();
 
