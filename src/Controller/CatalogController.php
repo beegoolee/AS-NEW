@@ -74,16 +74,24 @@ class CatalogController extends AbstractController
                     // это не раздел - пытаемся найти деталку товара
                     $productsRepo = $em->getRepository(Product::class);
                     $query = $productsRepo->createQueryBuilder('products')->setParameter('url', $url)->andWhere('products.url = :url')->getQuery();
-                    $arProducts = $query->getArrayResult();
-
+                    $oProduct = $query->getOneOrNullResult();
                     // если с таким урлом нашли ТОВАР
-                    $arCurProduct = current($arProducts);
-                    if (!empty($arCurProduct)) {
+                    if ($oProduct) {
+                        $arProduct = $oProduct->productDetailProps();
                         $arReturn = [
-                            'products' => [$arCurProduct],
+                            'products' => [
+                                $arProduct
+                            ],
                             'pageType' => 'product',
-                            'pageTitle' => $arCurProduct['name'],
+                            'pageTitle' => $arProduct['name']
                         ];
+
+                        $user = $this->getUser();
+                        if($user){
+                            $user->addRecentlyViewedProduct($oProduct);
+                            $em->persist($user);
+                            $em->flush();
+                        }
                     } else {
                         // ничего не нашли, 404, возвращаем пустой arReturn по-умолчанию
                     }

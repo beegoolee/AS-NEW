@@ -48,10 +48,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToOne(mappedBy: 'User', cascade: ['persist', 'remove'])]
     private ?ActualUserCart $actualUserCart = null;
 
+    /**
+     * @var Collection<int, Product>
+     */
+    #[ORM\ManyToMany(targetEntity: Product::class)]
+    private Collection $RecentlyViewedProduct;
+
     public function __construct()
     {
         $this->productReviews = new ArrayCollection();
         $this->orders = new ArrayCollection();
+        $this->RecentlyViewedProduct = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -202,6 +209,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         $this->actualUserCart = $actualUserCart;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Product>
+     */
+    public function getRecentlyViewedProduct(): Collection
+    {
+        return $this->RecentlyViewedProduct;
+    }
+
+    public function addRecentlyViewedProduct(Product $recentlyViewedProduct): static
+    {
+        if (!$this->RecentlyViewedProduct->contains($recentlyViewedProduct)) {
+            $this->RecentlyViewedProduct->add($recentlyViewedProduct);
+        }
+
+        return $this;
+    }
+
+    public function removeRecentlyViewedProduct(Product $recentlyViewedProduct): static
+    {
+        $this->RecentlyViewedProduct->removeElement($recentlyViewedProduct);
 
         return $this;
     }

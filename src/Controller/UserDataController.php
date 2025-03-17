@@ -8,6 +8,20 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class UserDataController extends AbstractController
 {
+    #[Route('/api/get_user_recent_products/', name: 'get_user_recent_products', methods: ['GET'])]
+    public function getUserRecentlyViewed()
+    {
+        $arReturn = [];
+        $user = $this->getUser();
+        if($user){
+            $arRecentlyProducts = $user->getRecentlyViewedProduct();
+            foreach ($arRecentlyProducts as $item) {
+                $arReturn[] = $item->productDetailProps();
+            }
+        }
+        return $this->json($arReturn);
+    }
+
     #[Route('/api/user/is_authorized/', name: 'user_is_authorized', methods: ['GET'])]
     public function userIsAuthorized(): JsonResponse
     {

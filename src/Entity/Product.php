@@ -272,4 +272,20 @@ class Product
 
         return $this;
     }
+
+    public function productDetailProps(): array
+    {
+        $reflection = new \ReflectionClass($this);
+        $methods = $reflection->getMethods(\ReflectionMethod::IS_PUBLIC);
+
+        $arProps = [];
+        foreach ($methods as $method) {
+            if (str_starts_with($method->getName(), 'get')) {
+                $methodName = $method->getName();
+                $arProps[strtolower(str_replace('get', '', $methodName))] = $method->invoke($this);
+            }
+        }
+
+        return $arProps;
+    }
 }

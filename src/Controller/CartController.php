@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class CartController extends AbstractController
 {
     #[Route('/api/order/make/', name: 'make_order', methods: ['POST'])]
-    public function makeOrder(EntityManagerInterface $em, Request $request): JsonResponse
+    public function makeOrder(EntityManagerInterface $em): JsonResponse
     {
         try {
             $user = $this->getUser();
@@ -28,7 +28,7 @@ class CartController extends AbstractController
 
             $newOrder->setOrderProducts($actualCart->getCart());
             $newOrder->setCreateDate(new \DateTimeImmutable());
-            $newOrder->setStatus(OrderStatusEnum::Pending->value);
+            $newOrder->setStatus(OrderStatusEnum::Pending);
 
             $em->persist($newOrder);
 
@@ -42,7 +42,7 @@ class CartController extends AbstractController
     }
 
     #[Route('/api/user/get_order_history/', name: 'user_get_order_history', methods: ['GET'])]
-    public function getUserOrderHistory(Request $request): JsonResponse
+    public function getUserOrderHistory(): JsonResponse
     {
         // получаем ВСЕ заказы юзера
         try {
@@ -81,7 +81,7 @@ class CartController extends AbstractController
     }
 
     #[Route('/api/user/get_cart/', name: 'user_get_cart', methods: ['GET'])]
-    public function getUserCart(EntityManagerInterface $em, Request $request): JsonResponse
+    public function getUserCart(EntityManagerInterface $em): JsonResponse
     {
         try {
             $user = $this->getUser();
