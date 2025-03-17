@@ -45,7 +45,7 @@ export default {
     };
 
     // В зависимости от урла - получаем от бека либо весь каталог, либо один раздел, либо один товар
-    axios.get(this.$store.getters.getApiHost()+'/api/catalog/', {params}).then(res => {
+    axios.get(this.$store.getters.getApiHost() + '/api/catalog/', {params, ...this.$store.getters.getAxiosUserConfig()}).then(res => {
       this.products = res.data.products;
       this.sections = res.data.sections;
       this.pageType = res.data.pageType;
