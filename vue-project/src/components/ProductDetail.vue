@@ -5,9 +5,12 @@
         img(:src="product.image")
       .product-detail__props.col-4
         RatingStars(:rating="product.rating")
-        p Код товара {{product.slug}}
-        p ID товара {{product.id}}
+        //p Код товара {{product.slug}}
+        //p ID товара {{product.id}}
         p Штрихкод: {{product.barcode}}
+        p Цвет товара: {{product.color}}
+        p Вес товара: {{product.weight}} г.
+        p Объем товара: {{product.volume}} мл.
         p Описание товара: {{product.description}}
       .product-detail__buy-block.col-4
         p.product-detail__price {{product.price}} ₽

@@ -1,5 +1,5 @@
 <template lang="pug">
-  .product-review-add-form
+  .product-review-add-form(v-if="canUserAddReview")
     hr
     p Добавить отзыв
     form(@submit.prevent="onSubmit()")
@@ -19,6 +19,7 @@ export default {
     return {
       reviewText: "",
       rating: 5,
+      canUserAddReview: false
     }
   },
   props: {
@@ -38,6 +39,12 @@ export default {
 
       });
     }
+  },
+  created() {
+    let self = this;
+    axios.get(this.$store.getters.getApiHost() + "/api/was_product_bought_by_user/" + this.productId, this.$store.getters.getAxiosUserConfig()).then((res) => {
+      self.canUserAddReview = res.data.was_bought;
+    });
   }
 }
 </script>
