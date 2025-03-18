@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Order;
 use App\Entity\Product;
+use App\Enums\OrderStatusEnum;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -31,7 +32,7 @@ class UserDataController extends AbstractController
     {
         $user = $this->getUser();
         if ($user) {
-            $userOrders = $em->getRepository(Order::class)->findBy(['User' => $user]);
+            $userOrders = $em->getRepository(Order::class)->findBy(['User' => $user, 'Status' => OrderStatusEnum::Success]); // TODO проверить. СДелать заказ, выставить статус "выполнен"
             $isProductRecentlyBought = false;
             foreach ($userOrders as $order) {
                 if($isProductRecentlyBought) break;
