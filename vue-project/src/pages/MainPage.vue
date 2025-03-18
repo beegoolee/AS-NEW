@@ -1,17 +1,17 @@
 <template lang="pug">
   component
     FullWidthSlider(:code="'mainpageTop'")
-    ProductsSliderWHeader(:code="'hotDiscounts'")
-    ProductsSliderWHeader(:code="'populars'")
+    ProductsCollection(:code="'hotDiscounts'")
+    ProductsCollection(:code="'populars'")
 </template>
 
 <script>
 import FullWidthSlider from "@/components/FullWidthSlider.vue";
-import ProductsSliderWHeader from "@/components/ProductsSliderWHeader.vue";
+import ProductsCollection from "@/components/ProductsCollection.vue";
 
 export default {
   components: {
-    ProductsSliderWHeader,
+    ProductsCollection,
     FullWidthSlider
   }
 }

@@ -21,7 +21,7 @@ export default {
   },
   computed: {
     activePage() {
-      return Number(this.pagenInfo.currentPage);
+      return Number(this.pagenInfo?.currentPage);
     },
     navItems() {
       let navItems = [];

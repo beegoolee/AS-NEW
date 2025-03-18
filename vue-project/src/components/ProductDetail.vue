@@ -16,8 +16,7 @@
       ProductReviewAddForm(:productId="product.id")
       hr
       ProductReviewsList(:productId="product.id")
-      leaf-title(:title="'Ранее вы смотрели'")
-      ProductsList(:products="recentlyViewedProducts") // TODO переделать на слайдер ProductsSliderWHeader
+      ProductsListSlider(:title="'Ранее вы смотрели'" :arSlides="recentlyViewedProducts")
 </template>
 
 <script>
@@ -26,7 +25,7 @@ import AddToCartBtn from "@/components/AddToCartBtn.vue";
 import RatingStars from "@/components/RatingStars.vue";
 import ProductReviewAddForm from "@/components/ProductReviewAddForm.vue";
 import ProductReviewsList from "@/components/ProductReviewsList.vue";
-import ProductsList from "@/components/ProductsList.vue";
+import ProductsListSlider from "@/components/ProductsListSlider.vue";
 import axios from 'axios';
 import LeafTitle from "@/components/LeafTitle.vue";
 
@@ -37,7 +36,7 @@ export default {
     ProductReviewAddForm,
     RatingStars,
     AddToCartBtn,
-    ProductsList
+    ProductsListSlider
   },
   props: {
     product: {

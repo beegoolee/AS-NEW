@@ -1,5 +1,5 @@
 <template lang="pug">
-  div
+  .products-collection
     LeafTitle(:title="title" :tagType="'h1'")
     Swiper.container(v-if="arSlides" v-bind="sliderOptions")
       SwiperSlide(v-for="item in arSlides")
@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import "@/style/ProductsSliderWHeader.sass"
+import "@/style/ProductsCollection.sass"
 import 'swiper/css';
 import LeafTitle from '@/components/LeafTitle.vue';
 import { Swiper, SwiperSlide } from 'swiper/vue';
