@@ -9,4 +9,9 @@ enum ProductColorEnum: string
     case GREEN = "зеленый";
     case BLACK = "черный";
     case WHITE = "белый";
+
+    public static function getCases(): array
+    {
+        return self::cases();
+    }
 }

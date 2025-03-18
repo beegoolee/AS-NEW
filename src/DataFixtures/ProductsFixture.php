@@ -9,6 +9,7 @@ use Doctrine\Persistence\ObjectManager;
 use App\Entity\Product;
 use App\Helpers\RandomImagesHelper;
 use Faker\Factory;
+use App\Enums\ProductColorEnum;
 
 class ProductsFixture extends Fixture
 {
@@ -43,8 +44,16 @@ class ProductsFixture extends Fixture
 
             $sProductName = $faker->name;
             $product->setName(current(explode(" ", $sProductName)));
-
             $product->setDescription($sProductName);
+
+            $iVolume = $faker->numberBetween(100, 1000);
+            $product->setVolume($iVolume);
+
+            $iWeight = $faker->numberBetween(100, 1000);
+            $product->setWeight($iWeight);
+
+            $colors = ProductColorEnum::getCases();
+            $product->setColor($colors[array_rand($colors)]);
 
             $sProductBarcode = $faker->ean8;
             $product->setBarcode($sProductBarcode);

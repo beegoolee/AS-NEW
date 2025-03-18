@@ -156,6 +156,7 @@ class CartController extends AbstractController
             $arCartProducts = $actualCart->getCart()->getProducts();
             if ($arCartProducts && array_key_exists($arRequest['product'], $arCartProducts)) {
                 $arCartProducts[$arRequest['product']] = [
+                    'product_id' => $arRequest['product'],
                     'quantity' => intval($arCartProducts[$arRequest['product']]['quantity']) + $arRequest['quantity'],
                     'product_base_price' => $product->getPrice(),
                     'total_price' => $product->getPrice() // TODO - сюда будем класть цену с учетом скидок. Можно добавить сравнение старой цены и новой - вдруг она изменилась пока мы корзину набирали
@@ -166,6 +167,7 @@ class CartController extends AbstractController
                 }
             } else {
                 $arCartProducts[$arRequest['product']] = [
+                    'product_id' => $arRequest['product'],
                     'quantity' => 1,
                     'product_base_price' => $product->getPrice(),
                     'total_price' => $product->getPrice() // TODO - сюда будем класть цену с учетом скидок

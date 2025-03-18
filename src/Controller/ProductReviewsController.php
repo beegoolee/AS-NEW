@@ -31,7 +31,7 @@ class ProductReviewsController extends AbstractController
         $productReview->setText($arRequest['text']);
         $em->persist($productReview);
         $em->flush();
-        $prh->updateProductsRating($arRequest['product_id']);
+        $prh->updateProductsRating($arRequest['product_id']); // TODO сделать ивент, при добавлении отзыва - пересчет оценки товара
 
         return $this->json(['success' => true]);
     }
