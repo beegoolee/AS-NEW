@@ -3,6 +3,7 @@
     .product-reviews-list__item(v-for="review in reviewsList" :key="review.id")
       p {{review.userName}} - оценка {{review.rating}}
       p {{review.text}}
+    p(v-if='reviewsList.length === 0') - Список отзывов пуст -
 </template>
 
 <script>
